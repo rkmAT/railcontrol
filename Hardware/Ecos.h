@@ -79,7 +79,7 @@ namespace Hardware
 				const DataModel::LocoFunctionNr function,
 				const DataModel::LocoFunctionState on) override;
 
-			void AccessoryOnOrOff(const Protocol protocol, const AccessoryGroup group ,const Address address, const DataModel::AccessoryState state, const bool on) override;
+			void AccessoryOnOrOff(const Protocol protocol, const Address address, const DataModel::AccessoryState state, const bool on) override;
 
 			static const char* const CommandActivateBoosterUpdates;
 			static const char* const CommandQueryLocos;

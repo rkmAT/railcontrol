@@ -775,10 +775,6 @@ namespace WebServer
 				argumentName = Languages::TextIPAddress;
 				break;
 
-			case ArgumentTypeIPPort:
-				argumentName = Languages::TextIPPort;
-				break;
-
 			case ArgumentTypeSerialPort:
 			{
 				argumentName = Languages::TextSerialPort;
@@ -998,7 +994,6 @@ namespace WebServer
 		hardwareList["RM485"] = HardwareTypeRM485;
 		hardwareList["Roco Z21"] = HardwareTypeZ21;
 		hardwareList["Virtual Command Station"] = HardwareTypeVirtual;
-		hardwareList["DCC++"] = HardwareTypeDCCpp;
 		return hardwareList;
 	}
 

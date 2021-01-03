@@ -37,7 +37,6 @@ along with RailControl; see the file LICENCE. If not see
 #include "Hardware/RM485.h"
 #include "Hardware/Virtual.h"
 #include "Hardware/Z21.h"
-#include "Hardware/DCCpp.h"
 #include "Utils/Utils.h"
 
 using std::string;
@@ -56,8 +55,7 @@ namespace Hardware
 		"Z21",
 		"CcSchnitte",
 		"Ecos",
-		"CS2Tcp",
-		"DCCpp"
+		"CS2Tcp"
 	};
 
 	void HardwareHandler::Init(const HardwareParams* params)
@@ -335,7 +333,7 @@ namespace Hardware
 		{
 			return;
 		}
-		instance->Accessory(accessory->GetProtocol(), AccessoryGroupCommon, accessory->GetAddress(), accessory->GetInvertedAccessoryState(), accessory->GetAccessoryPulseDuration());
+		instance->Accessory(accessory->GetProtocol(), accessory->GetAddress(), accessory->GetInvertedAccessoryState(), accessory->GetAccessoryPulseDuration());
 	}
 
 	void HardwareHandler::SwitchState(const ControlType controlType, const DataModel::Switch* mySwitch)
@@ -356,18 +354,18 @@ namespace Hardware
 			switch (mySwitch->GetAccessoryState())
 			{
 				case DataModel::SwitchStateTurnout:
-					instance->Accessory(protocol, AccessoryGroupSwitch, address + 1, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOff), duration);
-					instance->Accessory(protocol, AccessoryGroupSwitch, address, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOff), duration);
+					instance->Accessory(protocol, address + 1, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOff), duration);
+					instance->Accessory(protocol, address, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOff), duration);
 					break;
 
 				case DataModel::SwitchStateStraight:
-					instance->Accessory(protocol, AccessoryGroupSwitch, address, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOn), duration);
-					instance->Accessory(protocol, AccessoryGroupSwitch, address + 1, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOff), duration);
+					instance->Accessory(protocol, address, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOn), duration);
+					instance->Accessory(protocol, address + 1, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOff), duration);
 					break;
 
 				case DataModel::SwitchStateThird:
-					instance->Accessory(protocol, AccessoryGroupSwitch, address, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOn), duration);
-					instance->Accessory(protocol, AccessoryGroupSwitch, address + 1, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOn), duration);
+					instance->Accessory(protocol, address, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOn), duration);
+					instance->Accessory(protocol, address + 1, mySwitch->CalculateInvertedAccessoryState(DataModel::AccessoryStateOn), duration);
 					break;
 
 				default:
@@ -376,7 +374,7 @@ namespace Hardware
 			return;
 		}
 		// else left or right switch
-		instance->Accessory(protocol, AccessoryGroupSwitch, address, mySwitch->GetInvertedAccessoryState(), duration);
+		instance->Accessory(protocol, address, mySwitch->GetInvertedAccessoryState(), duration);
 	}
 
 	void HardwareHandler::SignalState(const ControlType controlType, const DataModel::Signal* signal)
@@ -388,7 +386,7 @@ namespace Hardware
 		{
 			return;
 		}
-		instance->Accessory(signal->GetProtocol(), AccessoryGroupSignal, signal->GetAddress(), signal->GetInvertedAccessoryState(), signal->GetAccessoryPulseDuration());
+		instance->Accessory(signal->GetProtocol(), signal->GetAddress(), signal->GetInvertedAccessoryState(), signal->GetAccessoryPulseDuration());
 	}
 
 	bool HardwareHandler::ProgramCheckValues(const ProgramMode mode, const CvNumber cv, const CvValue value)
@@ -490,10 +488,6 @@ namespace Hardware
 
 			case HardwareTypeEcos:
 				Hardware::Ecos::GetArgumentTypesAndHint(arguments, hint);
-				return;
-
-			case HardwareTypeDCCpp:
-				Hardware::DCCpp::GetArgumentTypesAndHint(arguments, hint);
 				return;
 
 			case HardwareTypeVirtual:

@@ -219,7 +219,7 @@ namespace Hardware
 		SendInternal(buffer);
 	}
 
-	void ProtocolMaerklinCAN::AccessoryOnOrOff(const Protocol protocol, __attribute__((unused)) const AccessoryGroup group, const Address address, const DataModel::AccessoryState state, const bool on)
+	void ProtocolMaerklinCAN::AccessoryOnOrOff(const Protocol protocol, const Address address, const DataModel::AccessoryState state, const bool on)
 	{
 		unsigned char buffer[CANCommandBufferLength];
 		logger->Info(Languages::TextSettingAccessoryWithProtocol, static_cast<int>(protocol), address, Languages::GetGreenRed(state), Languages::GetOnOff(on));

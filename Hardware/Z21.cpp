@@ -277,7 +277,7 @@ namespace Hardware
 		}
 	}
 
-	void Z21::Accessory(const Protocol protocol, __attribute__((unused)) const AccessoryGroup group, const Address address, const DataModel::AccessoryState state, const DataModel::AccessoryPulseDuration duration)
+	void Z21::Accessory(const Protocol protocol, const Address address, const DataModel::AccessoryState state, const DataModel::AccessoryPulseDuration duration)
 	{
 		if (!AccessoryProtocolSupported(protocol))
 		{
@@ -287,17 +287,17 @@ namespace Hardware
 		accessoryQueue.Enqueue(entry);
 	}
 
-	void Z21::AccessoryOn(const Protocol protocol, __attribute__((unused)) const AccessoryGroup group, const Address address, const DataModel::AccessoryState state)
+	void Z21::AccessoryOn(const Protocol protocol, const Address address, const DataModel::AccessoryState state)
 	{
-		AccessoryOnOrOff(protocol, group, address, state, true);
+		AccessoryOnOrOff(protocol, address, state, true);
 	}
 
-	void Z21::AccessoryOff(const Protocol protocol, __attribute__((unused)) const AccessoryGroup group, const Address address, const DataModel::AccessoryState state)
+	void Z21::AccessoryOff(const Protocol protocol, const Address address, const DataModel::AccessoryState state)
 	{
-		AccessoryOnOrOff(protocol, group, address, state, false);
+		AccessoryOnOrOff(protocol, address, state, false);
 	}
 
-	void Z21::AccessoryOnOrOff(__attribute__((unused)) const Protocol protocol, __attribute__((unused)) const AccessoryGroup group, const Address address, const DataModel::AccessoryState state, const bool on)
+	void Z21::AccessoryOnOrOff(__attribute__((unused)) const Protocol protocol, const Address address, const DataModel::AccessoryState state, const bool on)
 	{
 		const Address zeroBasedAddress = address - 1;
 		unsigned char buffer[9] = { 0x09, 0x00, 0x40, 0x00, 0x53 };
@@ -320,9 +320,9 @@ namespace Hardware
 				continue;
 			}
 			SendSetTurnoutMode(entry.address, entry.protocol);
-			AccessoryOn(entry.protocol, AccessoryGroupCommon, entry.address, entry.state);
+			AccessoryOn(entry.protocol, entry.address, entry.state);
 			Utils::Utils::SleepForMilliseconds(entry.duration);
-			AccessoryOff(entry.protocol, AccessoryGroupCommon, entry.address, entry.state);
+			AccessoryOff(entry.protocol, entry.address, entry.state);
 		}
 		logger->Info(Languages::TextTerminatingAccessorySenderThread);
 	}
