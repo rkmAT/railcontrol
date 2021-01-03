@@ -75,7 +75,7 @@ namespace Hardware
 				const Orientation orientation,
 				std::vector<DataModel::LocoFunctionEntry>& functions) override;
 
-			void AccessoryOnOrOff(const Protocol protocol, const Address address, const DataModel::AccessoryState state, const bool on) override;
+			void AccessoryOnOrOff(const Protocol protocol, const AccessoryGroup group, const Address address, const DataModel::AccessoryState state, const bool on) override;
 
 		private:
 			enum Commands : unsigned char

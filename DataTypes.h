@@ -121,7 +121,9 @@ enum Protocol : uint8_t
 	ProtocolMM15 = 10,
 	ProtocolSX1 = 11,
 	ProtocolSX2 = 12,
-	ProtocolEnd = ProtocolSX2
+	ProtocolCsInternalDefined = 13,
+	ProtocolDirectIO = 14,
+	ProtocolEnd = ProtocolDirectIO
 };
 
 static const std::string ProtocolSymbols[] =
@@ -138,7 +140,9 @@ static const std::string ProtocolSymbols[] =
 	"MM",
 	"MM 1.5",
 	"SX1",
-	"SX2"
+	"SX2",
+	"cs internal defined",
+	"direct I/O"
 };
 
 enum AddressType : uint8_t
@@ -151,7 +155,9 @@ enum ArgumentType : uint8_t
 {
 	ArgumentTypeIpAddress = 1,
 	ArgumentTypeSerialPort = 2,
-	ArgumentTypeS88Modules = 3
+	ArgumentTypeS88Modules = 3,
+	ArgumentTypeIPPort = 4,
+
 };
 
 enum HardwareType : uint8_t
@@ -167,6 +173,7 @@ enum HardwareType : uint8_t
 	HardwareTypeCcSchnitte = 8,
 	HardwareTypeEcos = 9,
 	HardwareTypeCS2Tcp = 10,
+	HardwareTypeDCCpp = 11,
 	HardwareTypeNumbers
 };
 
@@ -206,6 +213,14 @@ enum ProgramMode : uint8_t
 	ProgramModeDccDirect,
 	ProgramModeDccPomLoco,
 	ProgramModeDccPomAccessory
+};
+
+enum AccessoryGroup : uint8_t
+{
+	AccessoryGroupNone = 0,
+	AccessoryGroupCommon = 1,
+	AccessoryGroupSwitch = 2,
+	AccessoryGroupSignal = 3
 };
 
 typedef uint16_t CvNumber;

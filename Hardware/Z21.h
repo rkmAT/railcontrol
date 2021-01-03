@@ -132,8 +132,8 @@ namespace Hardware
 				const Orientation orientation,
 				std::vector<DataModel::LocoFunctionEntry>& functions) override;
 
-			void Accessory(const Protocol protocol, const Address address, const DataModel::AccessoryState state, const DataModel::AccessoryPulseDuration duration) override;
-			void AccessoryOnOrOff(const Protocol protocol, const Address address, const DataModel::AccessoryState state, const bool on) override;
+			void Accessory(const Protocol protocol, const AccessoryGroup group, const Address address, const DataModel::AccessoryState state, const DataModel::AccessoryPulseDuration duration) override;
+			void AccessoryOnOrOff(const Protocol protocol, const AccessoryGroup group, const Address address, const DataModel::AccessoryState state, const bool on) override;
 			void ProgramRead(const ProgramMode mode, const Address address, const CvNumber cv) override;
 			void ProgramWrite(const ProgramMode mode, const Address address, const CvNumber cv, const CvValue value) override;
 
@@ -283,8 +283,8 @@ namespace Hardware
 			void SendSetTurnoutMode(const Address address, const Protocol protocol);
 			void SendSetTurnoutModeMM(const Address address);
 			void SendSetTurnoutModeDCC(const Address address);
-			void AccessoryOn(const Protocol protocol, const Address address, const DataModel::AccessoryState state);
-			void AccessoryOff(const Protocol protocol, const Address address, const DataModel::AccessoryState state);
+			void AccessoryOn(const Protocol protocol, const AccessoryGroup group, const Address address, const DataModel::AccessoryState state);
+			void AccessoryOff(const Protocol protocol, const AccessoryGroup group, const Address address, const DataModel::AccessoryState state);
 			int Send(const unsigned char* buffer, const size_t bufferLength);
 			int Send(const char* buffer, const size_t bufferLength) { return Send(reinterpret_cast<const unsigned char*>(buffer), bufferLength); }
 

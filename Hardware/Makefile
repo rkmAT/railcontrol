@@ -13,7 +13,8 @@ LIBS= \
 	OpenDcc.so \
 	RM485.so \
 	Virtual.so \
-	Z21.so
+	Z21.so \
+	DCCpp.so
 
 OBJZLIB=zlib/adler32.o \
 	zlib/compress.o \
